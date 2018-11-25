@@ -58,7 +58,7 @@ public class Node {
 	}
 	
 	// Recebe um Link, mas evitando valor em que o link possua um nó com a chave especificada
-	public Entry<Node, Float> getMinimalLink(String key) {
+	public Entry<Node, Float> getMinimalLinkForPrim(String key) {
 		Entry<Node, Float> min = null;
 		float minweight = Float.MAX_VALUE;
 		
@@ -79,7 +79,7 @@ public class Node {
 	}
 	
 	// Recebe um Link, mas evitando valores em que o link possua um nó com a chave especificada através de um parâmetro de ArrayList
-		public Entry<Node, Float> getMinimalLink(ArrayList<Node> array) {
+		public Entry<Node, Float> getMinimalLinkForPrim(ArrayList<Node> array) {
 			Entry<Node, Float> min = null;
 			float minweight = Float.MAX_VALUE;
 			
