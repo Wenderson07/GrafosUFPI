@@ -60,7 +60,7 @@ public class Prim {
 		resultingGraph = new Graph();
 		// Caso queira que a escolha do nó inicial seja feita automaticamente, defina um parâmetro nulo.
 		try {
-			getMinimalSpanningTreePrim(startingNode);
+			OldGetMinimalSpanningTreePrim(startingNode);
 		} catch (ValidationException | ConflictingNodeException | LinkException e) {
 			// TODO Auto-generated catch block
 			throw e;
@@ -69,7 +69,7 @@ public class Prim {
 	}
 	
 	// Recebe a árvore geradora mínima através do algoritmo de Prim
-	public Graph getMinimalSpanningTreePrim(Node startingNode) throws ValidationException, ConflictingNodeException, LinkException {
+	public Graph OldGetMinimalSpanningTreePrim(Node startingNode) throws ValidationException, ConflictingNodeException, LinkException {
 		// Recebe um nó qualquer...
 		if (startingNode == null) {
 			Random r = new Random();
@@ -121,6 +121,16 @@ public class Prim {
 				break;
 			}
 		}
+		return resultingGraph;
+	}
+	
+	public Graph GetMinimalSpanningTreePrim(Node startingNode) throws ValidationException, ConflictingNodeException, LinkException {
+		// Recebe um nó qualquer.
+		Node a = startingNode;
+		if (a == null) {
+			a = originalGraph.nodeList.get(0);
+		}
+		// Insere esse nó no grafo e na lista de nós Prim.
 		return resultingGraph;
 	}
 }
