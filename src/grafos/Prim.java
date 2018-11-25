@@ -155,6 +155,8 @@ public class Prim {
 					System.out.println("Node [" + resulting_graph_node1.key + "] cloned and inserted on resulting graph.");
 					resulting_graph_node1.link(resulting_graph_node2, link.getValue());
 					System.out.println("Node [" + resulting_graph_node1.key + "] linked with [" + resulting_graph_node2.key + "] with weight " + link.getValue() + ".");
+					resulting_graph_node2.link(resulting_graph_node1, link.getValue());
+					System.out.println("Node [" + resulting_graph_node2.key + "] linked with [" + resulting_graph_node1.key + "] with weight " + link.getValue() + ".");
 					nodeList.add(original_graph_node1);
 					original_graph_node1 = original_graph_node2;
 					break;

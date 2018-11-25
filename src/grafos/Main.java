@@ -7,7 +7,7 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Date d1 = new Date();
-		Graph newGraph = GraphGenerator.FullConnectedGenerator(10, 20);
+		Graph newGraph = GraphGenerator.FullConnectedGenerator(2, 20);
 		Date d2 = new Date();
 		newGraph.Print();
 		Date d3 = new Date();
@@ -22,13 +22,15 @@ public class Main {
 			d1 = new Date();
 			Prim prim = new Prim(newGraph);
 			prim.Start(newGraph.nodeList.get(0));
+			d2 = new Date();
+			
 			prim.resultingGraph.Print();
 			System.out.println("Geração de Grafo Original");
 			System.out.println("Prim time: " + (d2.getTime() - d1.getTime()) + " ms");
-			d2 = new Date();
 		} catch (InvalidPrimGraphException | ValidationException | ConflictingNodeException | LinkException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			System.out.println("Deu pau");
 		}
 	}
 }
