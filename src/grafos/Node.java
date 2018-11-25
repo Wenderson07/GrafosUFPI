@@ -41,7 +41,7 @@ public class Node {
 		}
 		// Garante que o link não ocorra com si mesmo.
 		if (NodeToLink == this || this.key == NodeToLink.key) {
-			System.out.println("\t\t!] Link Duplication error!");
+			System.out.println("\t\t[!] Link Duplication error!");
 			throw new LinkException(this, NodeToLink, weight);
 		}
 		// Garante que o link já não se repita na lista dos nós conectados.
@@ -102,5 +102,11 @@ public class Node {
 			}
 			
 			return min;
+		}
+		
+		public Node Clone() {
+			Node a = new Node(this.key);
+			a.data = this.data;
+			return a;
 		}
 }

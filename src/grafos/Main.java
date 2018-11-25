@@ -19,8 +19,13 @@ public class Main {
 		
 		System.out.println("Geração de Grafo Prim");
 		try {
+			d1 = new Date();
 			Prim prim = new Prim(newGraph);
 			prim.Start(newGraph.nodeList.get(0));
+			prim.resultingGraph.Print();
+			System.out.println("Geração de Grafo Original");
+			System.out.println("Prim time: " + (d2.getTime() - d1.getTime()) + " ms");
+			d2 = new Date();
 		} catch (InvalidPrimGraphException | ValidationException | ConflictingNodeException | LinkException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

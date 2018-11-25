@@ -5,6 +5,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map.Entry;
+import java.util.Random;
 
 public class Graph {
 	public String name;
@@ -74,5 +75,12 @@ public class Graph {
 			}
 			System.out.print('\n');
 		}
+	}
+	
+	public Node getRandomNode() {
+		Node n;
+		Random r = new Random();
+		n = nodeList.get(r.nextInt(nodeList.size()));
+		return n;
 	}
 }

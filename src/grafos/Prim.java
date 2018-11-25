@@ -60,7 +60,7 @@ public class Prim {
 		resultingGraph = new Graph();
 		// Caso queira que a escolha do nó inicial seja feita automaticamente, defina um parâmetro nulo.
 		try {
-			OldGetMinimalSpanningTreePrim(startingNode);
+			GetMinimalSpanningTreePrim(startingNode);
 		} catch (ValidationException | ConflictingNodeException | LinkException e) {
 			// TODO Auto-generated catch block
 			throw e;
@@ -126,11 +126,42 @@ public class Prim {
 	
 	public Graph GetMinimalSpanningTreePrim(Node startingNode) throws ValidationException, ConflictingNodeException, LinkException {
 		// Recebe um nó qualquer.
-		Node a = startingNode;
-		if (a == null) {
-			a = originalGraph.nodeList.get(0);
+		Node original_graph_node1 = startingNode;
+		if (original_graph_node1 == null) {
+			System.out.println("Getting Random Node...");
+			original_graph_node1 = originalGraph.getRandomNode();
+			System.out.println("Got node [" + original_graph_node1.key + "].");
 		}
 		// Insere esse nó no grafo e na lista de nós Prim.
+		System.out.println("Inserting random node on Prim Visit List...");
+		nodeList.add(original_graph_node1);		
+		System.out.println("Node [" + original_graph_node1.key + "] inserted on Prim Visit List...");
+		Node resulting_graph_node1 = original_graph_node1.Clone();
+		resultingGraph.Add(resulting_graph_node1);
+		System.out.println("Node [" + resulting_graph_node1.key + "] cloned and inserted on resulting graph.");
+		
+		System.out.println("[.] Entered onto loopzone.");
+		while (nodeList != originalGraph.nodeList) {
+			for (int i = (nodeList.size() - 1); i >= 0; i--) {
+				Entry<Node, Float> link = original_graph_node1.getMinimalLink(nodeList);
+				if (link == null) {
+					continue;
+				} else {
+					System.out.println("Got link: " + link.getKey().key + ", " + link.getValue());
+					Node original_graph_node2 = link.getKey();
+					Node resulting_graph_node2 = original_graph_node2.Clone();
+					System.out.println("Inserting new node: [" + resulting_graph_node2.key + "] on " + resultingGraph.name);
+					resultingGraph.Add(resulting_graph_node2);
+					System.out.println("Node [" + resulting_graph_node1.key + "] cloned and inserted on resulting graph.");
+					resulting_graph_node1.link(resulting_graph_node2, link.getValue());
+					System.out.println("Node [" + resulting_graph_node1.key + "] linked with [" + resulting_graph_node2.key + "] with weight " + link.getValue() + ".");
+					nodeList.add(original_graph_node1);
+					original_graph_node1 = original_graph_node2;
+					break;
+				}
+			}
+		}
+		
 		return resultingGraph;
 	}
 }
