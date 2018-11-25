@@ -4,6 +4,6 @@ Este é mais um trabalho ~~in~~útil da Universidade Federal do Piauí. Trata-se
 Olha só como ele tem estilo. Tem mais moral do que todo mundo junto na equipe desse trabalho. Voltando ao assunto, o gerador se utiliza dos algoritmos de Prim, ~~Daikist~~
  ~~Daiquis~~ ~~Dijiks~~ Djikstra (não procurei no Google).
 
-Juramos que copiamos nenhum algoritmo da internet (🤞), e que toda essa produção intelectual provavelmente vai servir pra gerar algum artigo (provavelmente não será meu) e o no fim, não iremos tirar nenhuma nota boa nessa matéria, porque o monitor deve ser um pau no cu.
+Juramos que copiamos nenhum algoritmo da internet (🤞), e que toda essa produção intelectual provavelmente vai servir pra gerar algum artigo (provavelmente não será meu) e o no fim, não iremos tirar nenhuma nota boa nessa matéria, porque o monitor nem vai ler isso aqui.
 
 Foi implementado em Java (eca), e fornece resultados tão rápidos quanto a sua virtual machine permite executar. Mas, não deve demorar tant- ei, porque você está abrindo esse vídeo no YouTube?!
