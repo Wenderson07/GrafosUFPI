@@ -90,17 +90,22 @@ public class Prim {
 		// "Recursivamente", executa o algoritmo de Prim.
 		while (nodeList != originalGraph.nodeList || e1 != null) {
 			// Insere o novo nó
+			System.out.println("Inserting new node...");
 			resultingGraph.Add(e1.getKey());
 			// Recebe o parâmetro do novo nó
+			System.out.println("Receiving new parameter...");
 			Node n2 = resultingGraph.Get(e1.getKey().key);
 			// Faz a conexão no grafo resultante
+			System.out.println("Linking into new graph...");
 			n1.link(n2, e1.getValue());
 			
 			try {
 				// Realiza a busca pelo novo link de menor peso em n2
+				System.out.println("Searching for new link within node list...");
 				e1 = originalGraph.Get(n2.key).getMinimalLink(nodeList);
 				// Ao falhar em encontrar, procurar a partir dos elementos já inseridos no novo grafo
 				if (e1 == null) {
+					System.out.println("Not found. Retrying with earlier node...");
 					int count = nodeList.size();
 					while (e1 == null) {
 						count -= 1;
@@ -112,6 +117,7 @@ public class Prim {
 					}
 				}
 			} catch (PrimEndException pee) {
+				System.out.println("End.");
 				break;
 			}
 		}

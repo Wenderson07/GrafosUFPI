@@ -36,18 +36,18 @@ public class Node {
 	public void link(Node NodeToLink, float weight) throws LinkException {
 		// Garante que o link não seja invalido.
 		if (!this.Validate() || !NodeToLink.Validate() || weight < 0) {
-//			System.out.println("\t\t[!] Link Validation error!");
+			System.out.println("\t\t[!] Link Validation error!");
 			throw new LinkException(this, NodeToLink, weight);
 		}
 		// Garante que o link não ocorra com si mesmo.
 		if (NodeToLink == this || this.key == NodeToLink.key) {
-//			System.out.println("\t\t!] Link Duplication error!");
+			System.out.println("\t\t!] Link Duplication error!");
 			throw new LinkException(this, NodeToLink, weight);
 		}
 		// Garante que o link já não se repita na lista dos nós conectados.
 		for (Node n : linkedNodes.keySet()) {
 			if (n.key == NodeToLink.key) {
-//				System.out.println("\t\t[!] Link Conflicting Error!");
+				System.out.println("\t\t[!] Link Conflicting Error!");
 				throw new LinkException(this, NodeToLink, weight);
 			}
 		}
