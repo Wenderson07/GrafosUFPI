@@ -83,8 +83,8 @@ public class Djikstra {
 		// Starts the process with the first node.
 		startingNode.time = 0;
 		startingNode.visited = true;
-		Node nextNode = startingNode.node.Clone();
-		resultingGraph.Add(nextNode);
+		Node resultgraph_node1 = startingNode.node.Clone();
+		resultingGraph.Add(resultgraph_node1);
 		visited_nodeList.add(startingNode.node);
 
 		// Adds the rest of nodes and link each of them
@@ -95,36 +95,34 @@ public class Djikstra {
 					// Decreases one step on the list.
 					continue;
 				} else {
-					System.out.println("Got link: [" + nextNode.key + " , " + newlink.getKey().key + "]: " + newlink.getValue());
+					System.out.println("Got link: [" + resultgraph_node1.key + " , " + newlink.getKey().key + "]: " + newlink.getValue());
 					// Gets the new node and clones it
-					Node n = newlink.getKey().Clone();
-					resultingGraph.Add(n);
-					System.out.println("Inserted [" + newlink.getKey().key + "] on the resulting graph.");
+					Node resultgraph_node2 = newlink.getKey().Clone();
+					resultingGraph.Add(resultgraph_node2);
+					System.out.println("\tInserted [" + newlink.getKey().key + "] on the resulting graph.");
 
 					// Increases the local time of variable with link value and gets the time of
 					// actual path
-					DjikstraListElement e1 = Get(nextNode.key);
+					DjikstraListElement e1 = Get(resultgraph_node1.key);
 					time = e1.time;
 					// E2 stores the new node reference
-					DjikstraListElement e2 = Get(n.key);
+					DjikstraListElement e2 = Get(resultgraph_node2.key);
 					e2.time = time += newlink.getValue();
 
 					// Inserts the new node into the result graph, and links it with the previous
 					// node
-					System.out.print ("Linking...: [" + nextNode.key + ", " + n.key + "]: " + newlink.getValue());
-					nextNode.link(n, newlink.getValue());
+					System.out.print ("\tLinking...: [" + resultgraph_node1.key + ", " + resultgraph_node2.key + "]: " + newlink.getValue());
+					resultgraph_node1.link(resultgraph_node2, newlink.getValue());
 					System.out.println(" -- linked!");
 
 					// Updates the cursor
-					System.out.println("Moving from [" + startingNode.node.key + "] to [" + e2.node.key + "]...");
-					startingNode = e2;
-					System.out.println("\tCloning [" + e2.node.key + "]...");
-					nextNode = startingNode.node.Clone();
-					System.out.println("\tInserting [" + e2.node.key + "] into visited node list...");
-					visited_nodeList.add(e2.node);
-					for (Node node : visited_nodeList) {
-						System.out.println("visted node list item: " + node.key );
-					}
+					startingNode = Get(resultgraph_node2.key);
+					startingNode.time = time;
+					startingNode.visited = true;
+					visited_nodeList.add(startingNode.node);
+					resultgraph_node1 = startingNode.node.Clone();
+					
+					
 				}
 			}
 		}

@@ -114,8 +114,7 @@ public class Node {
 		return min;
 	}
 
-	public Node 
-() {
+	public Node Clone() {
 		Node a = new Node(this.key);
 		a.data = this.data;
 		return a;
