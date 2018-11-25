@@ -145,14 +145,14 @@ public class Prim {
 			int listsize = nodeList.size();
 			System.out.println("List size: " + listsize);
 			for (int i = (listsize - 1); i >= 0; i--) {
-				for (Node n : resultingGraph.nodeList) {
-					System.out.print(n.key + " ");
-				}
-				System.out.println();
-				for (Node n : nodeList) {
-					System.out.print(n.key + " ");
-				}
-				System.out.println();
+//				for (Node n : resultingGraph.nodeList) {
+//					System.out.print(n.key + " ");
+//				}
+//				System.out.println();
+//				for (Node n : nodeList) {
+//					System.out.print(n.key + " ");
+//				}
+//				System.out.println();
 				
 				System.out.println("Operating with node [" + nodeList.get(i).key + "], loop index " + i + "...");
 				Entry<Node, Float> link = original_graph_node1.getMinimalLink(nodeList);
@@ -160,20 +160,20 @@ public class Prim {
 					continue;
 				} else {
 					// Reference and Clone
-					System.out.println("Got link: " + original_graph_node1.key + ", " + link.getKey().key + ", " + link.getValue());
+					System.out.println("\tGot link: " + original_graph_node1.key + ", " + link.getKey().key + ", " + link.getValue());
 					Node original_graph_node2 = link.getKey();
 					Node resulting_graph_node2 = original_graph_node2.Clone();
-					System.out.println("Node [" + resulting_graph_node2.key + "] cloned.");
+					System.out.println("\tNode [" + resulting_graph_node2.key + "] cloned.");
 					// Insert the node on the new graph
-					System.out.println("Inserting new node: [" + resulting_graph_node2.key + "] on " + resultingGraph.name);
+					System.out.println("\tInserting new node: [" + resulting_graph_node2.key + "] on " + resultingGraph.name);
 					resultingGraph.Add(resulting_graph_node2);
-					System.out.println("Node [" + resulting_graph_node2.key + "] cloned and inserted on resulting graph.");
+					System.out.println("\tNode [" + resulting_graph_node2.key + "] cloned and inserted on resulting graph.");
 					// Link them
 					resulting_graph_node1.link(resulting_graph_node2, link.getValue());
-					System.out.println("Node [" + resulting_graph_node1.key + "] linked with [" + resulting_graph_node2.key + "] with weight " + link.getValue() + ".");
+					System.out.println("\tNode [" + resulting_graph_node1.key + "] linked with [" + resulting_graph_node2.key + "] with weight " + link.getValue() + ".");
 					// Link them also in reverse Way
 					resulting_graph_node2.link(resulting_graph_node1, link.getValue());
-					System.out.println("Node [" + resulting_graph_node2.key + "] linked with [" + resulting_graph_node1.key + "] with weight " + link.getValue() + ".");
+					System.out.println("\tNode [" + resulting_graph_node2.key + "] linked with [" + resulting_graph_node1.key + "] with weight " + link.getValue() + ".");
 					
 					// Check nodelist for add
 					for (Node n : nodeList) {
