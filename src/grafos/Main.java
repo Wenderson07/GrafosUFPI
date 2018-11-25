@@ -16,7 +16,6 @@ public class Main {
 		System.out.println("Generation time: " + (d2.getTime() - d1.getTime()) + " ms");
 		System.out.println("Printing time: " + (d3.getTime() - d2.getTime()) + " ms");
 		System.out.println("Full time: " + (d3.getTime() - d1.getTime()) + " ms");
-		
 		System.out.println("Geração de Grafo Prim");
 		try {
 			d1 = new Date();
@@ -24,13 +23,15 @@ public class Main {
 			prim.Start(newGraph.nodeList.get(0));
 			d2 = new Date();
 			
-			prim.resultingGraph.Print();
-			System.out.println("Geração de Grafo Original");
+//			prim.resultingGraph.Print();
+			
+			System.out.println("Geração de Grafo Prim");
 			System.out.println("Prim time: " + (d2.getTime() - d1.getTime()) + " ms");
+			
+			prim.resultingGraph.Print();
 		} catch (InvalidPrimGraphException | ValidationException | ConflictingNodeException | LinkException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("Deu pau");
 		}
 	}
 }

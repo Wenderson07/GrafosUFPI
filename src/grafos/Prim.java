@@ -141,8 +141,9 @@ public class Prim {
 		System.out.println("Node [" + resulting_graph_node1.key + "] cloned and inserted on resulting graph.");
 		
 		System.out.println("[.] Entered onto loopzone.");
-		while (nodeList != originalGraph.nodeList) {
+		while (nodeList.size() != originalGraph.nodeList.size()) {
 			for (int i = (nodeList.size() - 1); i >= 0; i--) {
+				System.out.println("Operating with node [" + nodeList.get(i).key + "], loop index " + i + "...");
 				Entry<Node, Float> link = original_graph_node1.getMinimalLink(nodeList);
 				if (link == null) {
 					continue;
