@@ -10,21 +10,25 @@ public class Node {
 	public String key;
 	public String data;
 	public LinkedHashMap<Node, Float> linkedNodes;
-		
+
 	public Node(String key) {
-		// O construtor já garante que a criação do objeto atenda os padrões de validação
+		// O construtor já garante que a criação do objeto atenda os padrões de
+		// validação
 		this.key = key;
-		data = "Random graph data generated at " + Date.from(Instant.now()).toString() + " within following random content: " + (String.valueOf(Date.from(Instant.now()).getTime()).hashCode());
+		data = "Random graph data generated at " + Date.from(Instant.now()).toString()
+				+ " within following random content: "
+				+ (String.valueOf(Date.from(Instant.now()).getTime()).hashCode());
 		linkedNodes = new LinkedHashMap<>();
 	}
-	
+
 	public Node(String key, String data) {
-		// O segundo construtor permite a inserção de um texto específico no campo de dados.
+		// O segundo construtor permite a inserção de um texto específico no campo de
+		// dados.
 		this.key = key;
 		this.data = data;
 		linkedNodes = new LinkedHashMap<>();
 	}
-	
+
 	public boolean Validate() {
 		// Valida a chave.
 		if (this == null || this.key == null) {
@@ -32,7 +36,7 @@ public class Node {
 		}
 		return true;
 	}
-	
+
 	public void link(Node NodeToLink, float weight) throws LinkException {
 		// Garante que o link não seja invalido.
 		if (!this.Validate() || !NodeToLink.Validate() || weight < 0) {
@@ -51,17 +55,21 @@ public class Node {
 				throw new LinkException(this, NodeToLink, weight);
 			}
 		}
-		
+
 		// Insere o link, após todas as verificações.
-//		System.out.println("\t\t[.] Link inserted.");
+		System.out.println("\t\t[.] Link inserted: ["+ this.key + ", " + NodeToLink.key +"]: " + weight + ".");
 		linkedNodes.put(NodeToLink, weight);
+		for (Node nes : linkedNodes.keySet()) {
+			System.out.println(nes.key);
+		}
 	}
-	
-	// Recebe um Link, mas evitando valor em que o link possua um nó com a chave especificada
+
+	// Recebe um Link, mas evitando valor em que o link possua um nó com a chave
+	// especificada
 	public Entry<Node, Float> getMinimalLinkForPrim(String key) {
 		Entry<Node, Float> min = null;
 		float minweight = Float.MAX_VALUE;
-		
+
 		for (Entry<Node, Float> e : linkedNodes.entrySet()) {
 			// Verifica se o nó é o não-desejado
 			if (e.getKey().key == key) {
@@ -74,40 +82,42 @@ public class Node {
 				}
 			}
 		}
-		
+
 		return min;
 	}
-	
-	// Recebe um Link, mas evitando valores em que o link possua um nó com a chave especificada através de um parâmetro de ArrayList
-		public Entry<Node, Float> getMinimalLinkForPrim(ArrayList<Node> array) {
-			Entry<Node, Float> min = null;
-			float minweight = Float.MAX_VALUE;
-			
-			for (Entry<Node, Float> e : linkedNodes.entrySet()) {
-				// Verifica se o nó é o não-desejado
-				try {
-					for (Node n : array) {
-						if (e.getKey().key == n.key) {
+
+	// Recebe um Link, mas evitando valores em que o link possua um nó com a chave
+	// especificada através de um parâmetro de ArrayList
+	public Entry<Node, Float> getMinimalLinkForPrim(ArrayList<Node> array) {
+		Entry<Node, Float> min = null;
+		float minweight = Float.MAX_VALUE;
+
+		for (Entry<Node, Float> e : linkedNodes.entrySet()) {
+			// Verifica se o nó é o não-desejado
+			try {
+				for (Node n : array) {
+					if (e.getKey().key == n.key) {
 //							System.out.println("[!] Conflicting Node: " + e.getKey().key);
-							throw new ConflictingNodeException();
-						}
+						throw new ConflictingNodeException();
 					}
-				} catch (ConflictingNodeException cne) {
-					continue;
 				}
-				// Atualiza o valor do link de menor peso
-				if (e.getValue() < minweight) {
-					minweight = e.getValue();
-					min = e;
-				}
+			} catch (ConflictingNodeException cne) {
+				continue;
 			}
-			
-			return min;
+			// Atualiza o valor do link de menor peso
+			if (e.getValue() < minweight) {
+				minweight = e.getValue();
+				min = e;
+			}
 		}
-		
-		public Node Clone() {
-			Node a = new Node(this.key);
-			a.data = this.data;
-			return a;
-		}
+
+		return min;
+	}
+
+	public Node 
+() {
+		Node a = new Node(this.key);
+		a.data = this.data;
+		return a;
+	}
 }

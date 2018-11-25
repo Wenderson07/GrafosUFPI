@@ -58,7 +58,8 @@ public class Prim {
 		executed = true;
 		startDate = new Date();
 		resultingGraph = new Graph();
-		// Caso queira que a escolha do nó inicial seja feita automaticamente, defina um parâmetro nulo.
+		// Caso queira que a escolha do nó inicial seja feita automaticamente, defina um
+		// parâmetro nulo.
 		try {
 			GetMinimalSpanningTreePrim(startingNode);
 		} catch (ValidationException | ConflictingNodeException | LinkException e) {

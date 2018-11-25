@@ -10,19 +10,19 @@ import java.util.Random;
 public class Graph {
 	public String name;
 	public ArrayList<Node> nodeList;
-	
+
 	// Cria um grafo, cujo nome se refere a data em que foi criado.
 	public Graph() {
 		this.name = "Graph " + Date.from(Instant.now()).toString();
 		nodeList = new ArrayList<Node>();
 	}
-	
+
 	// Cria um grafo com o nome especificado.
 	public Graph(String name) {
 		this.name = name;
 		nodeList = new ArrayList<Node>();
 	}
-	
+
 	// Recebe o elemento na lista de nós
 	public Node Get(String key) throws InvalidParameterException {
 		// Validação da chave no parâmetro
@@ -38,7 +38,7 @@ public class Graph {
 		// Retorna um elemento nulo caso não seja encontrado
 		return null;
 	}
-	
+
 	// Adiciona o elemento na lista de nós
 	public void Add(Node n) throws ValidationException, ConflictingNodeException {
 		// Validação do novo elemento
@@ -51,16 +51,16 @@ public class Graph {
 				throw new ConflictingNodeException();
 			}
 		}
-		
+
 		nodeList.add(n);
 	}
-	
+
 	// Cria um novo nó, cuja chave é o número de elementos da lista.
 	public Node CreateEmptyNode() {
 		Node n = new Node(String.valueOf(nodeList.size() + 1));
 		return n;
 	}
-	
+
 	public void Print() {
 		if (nodeList.isEmpty()) {
 			System.out.println("Empty Graph.");
@@ -76,7 +76,7 @@ public class Graph {
 			System.out.print('\n');
 		}
 	}
-	
+
 	public Node getRandomNode() {
 		Node n;
 		Random r = new Random();
