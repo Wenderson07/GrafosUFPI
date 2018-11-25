@@ -88,6 +88,7 @@ public class Node {
 				try {
 					for (Node n : array) {
 						if (e.getKey().key == n.key) {
+							System.out.println("[!] Conflicting Node: " + e.getKey().key);
 							throw new ConflictingNodeException();
 						}
 					}
