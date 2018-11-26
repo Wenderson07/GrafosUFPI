@@ -1,0 +1,148 @@
+package grafos;
+import java.util.Scanner;
+import java.util.Map.Entry;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+public class Gerador {
+	//1- Ler o arquivo e dar split por espaço -> Não fiz isso, usei a função nextInt
+	//2- Calcular o numero de vertices -> Calculei o numero total de linhas, botando em um array
+	//3- Criar todos os nós ->Esse é o 1° for, recebe o resultado de 2
+	//4- Atribuir pesos de cada vertice - > Esse é o 2° for, ele cria uma matriz[x][y] que atribui os pesos 
+	//  4.1- Se o vertice for ele mesmo, atribuir o valor de 0 - > se i = j, peso == 0
+	//5- Atribuindo os pesos às ligações dos vertices -> 3 for, cada no é atribuido ao peso salvo na matriz (2° for)
+	
+	public Graph carregarArquivo(){	
+		Graph grafo = new Graph();
+		int vertices = 0;
+		try{
+            BufferedReader arquivo = new BufferedReader(new FileReader("/input.txt"));
+			Scanner scanner = new Scanner(arquivo);
+			try {
+				while ((arquivo.readLine())!=null){
+					vertices++;
+				}
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			scanner.close();
+		}catch(FileNotFoundException e1) {
+			e1.printStackTrace();
+		}
+	    int[][] matriz = new int[vertices][vertices]; 
+	     
+	    //Cria todos os vertices e os adiciona no grafo
+	    for (int i = 0; i < vertices; i++) {
+			Node n = grafo.CreateEmptyNode();
+			try {
+				grafo.Add(n); //Adiciona o vertice N 
+			}catch (ValidationException | ConflictingNodeException e) {
+				e.printStackTrace();
+			}
+		}
+		Scanner input;
+		try { //Atribui os pesos da matriz nos vertices
+			input = new Scanner(new File("/input.txt"));
+			for (int i = 0; i < vertices; i++) {
+				for (int j = 0; j < vertices; j++) {
+					if (i == j) {
+						matriz [i][j] = 0;
+						input.nextInt();
+						continue;
+					} else {
+						matriz [i][j] = input.nextInt(); //Matriz [i][j] recebe 
+						matriz [j][i] = matriz[i][j];
+					}
+				}
+			}
+			input.close();
+		}catch (FileNotFoundException e) {
+			e.printStackTrace();
+			}
+		// Atribuindo os pesos as ligações dos vertices
+		for (int i = 0; i < vertices; i++) {			
+			Node n = grafo.nodeList.get(i);
+			for (int j = i; j < vertices; j++) {
+				if (i == j) {
+					continue;
+				}
+				try {
+					Node m = grafo.nodeList.get(j);
+					n.link(m, matriz[i][j]);
+					m.link(n, matriz[j][i]);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}		
+		return grafo;
+	}
+	
+	public void salvarGrafoTxt(Graph grafo) {
+		 File arquivo = new File("grafoGerado.txt");
+		 
+        if (grafo.nodeList.isEmpty()) {
+			System.out.println("Grafo vazio.");
+		}else {
+			  try {
+					PrintWriter salvar = new PrintWriter(arquivo);	
+	 			for (Node x : grafo.nodeList) {
+	 				salvar.printf("[" + x.key + "]: ");
+	 				if (x.linkedNodes.isEmpty()) {
+	 					salvar.printf("Vazia");
+	 				}
+	 				for (Entry<Node, Float> e : x.linkedNodes.entrySet()) {
+	 					salvar.printf("(" + e.getKey().key + ", " + e.getValue() + ");");
+	 				}
+	 				salvar.println();
+	 			}
+	 			salvar.flush();
+	 			salvar.close();
+			 } catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+			 }
+		}
+        System.out.println("Grafo txt salvo");
+	}
+	
+	
+	public Graph gerarGrafo(int vertices, int[][] matrizAux) {
+		// Allocacao.
+		Graph grafo = new Graph();
+		//Cria nos vazios
+		//		System.out.println("Creating nodes...");
+		for (int i = 0; i < vertices; i++) {
+			Node v = grafo.CreateEmptyNode();
+			try {
+				grafo.Add(v);
+			} catch (ValidationException | ConflictingNodeException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		// Atribuindo pesos aos vertices
+		for (int i = 0; i < vertices; i++) {			
+			Node n = grafo.nodeList.get(i);
+			for (int j = i; j < vertices; j++) {
+				if (i == j) {
+					continue;
+				}
+				try {
+					Node m = grafo.nodeList.get(j);
+					n.link(m, matrizAux[i][j]);
+					m.link(n, matrizAux[j][i]);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		return grafo;
+	}
+
+}
