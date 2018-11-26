@@ -76,56 +76,47 @@ public class Djikstra {
 		return visited_nodeList;
 	}
 
-	public void GetDistanceFromPoint(DjikstraListElement startingNode)
+	public void GetDistanceFromPoint(DjikstraListElement dj_originalgraph_node1)
 			throws ValidationException, ConflictingNodeException, LinkException {
 		// Creates a local variable for storing the visiting period
 		float time = 0;
 		// Starts the process with the first node.
-		startingNode.time = 0;
-		startingNode.visited = true;
-		Node resultgraph_node1 = startingNode.node.Clone();
+		dj_originalgraph_node1.time = 0;
+		dj_originalgraph_node1.visited = true;
+		Node resultgraph_node1 = dj_originalgraph_node1.node.Clone();
 		resultingGraph.Add(resultgraph_node1);
-		visited_nodeList.add(startingNode.node);
+		visited_nodeList.add(dj_originalgraph_node1.node);
 
 		// Adds the rest of nodes and link each of them
 		while (GetVisitedNodeList().size() != djikstra_nodeList.size()) {
+			for (Node n : visited_nodeList) {
+				System.out.print("v.n.: " + n.key);
+			}
+			System.out.println();
 			for (int i = (visited_nodeList.size() - 1); i >= 0; i--) {
-				Entry<Node, Float> newlink = startingNode.node.getMinimalLinkForPrim(GetVisitedNodeList());
-				if (newlink == null) {
-					// Decreases one step on the list.
+				System.out.println("From: " + dj_originalgraph_node1.node.key);
+				time = dj_originalgraph_node1.time;
+				Entry<Node, Float> link_connection = dj_originalgraph_node1.node.getMinimalLinkForPrim(visited_nodeList);
+				if (link_connection == null) {
+					System.out.println("Got a null link");
+					dj_originalgraph_node1 = Get(visited_nodeList.get(i).key);
+					resultgraph_node1 = dj_originalgraph_node1.node.Clone();
 					continue;
 				} else {
-					System.out.println("Got link: [" + resultgraph_node1.key + " , " + newlink.getKey().key + "]: " + newlink.getValue());
-					// Gets the new node and clones it
-					Node resultgraph_node2 = newlink.getKey().Clone();
+					// Só crie a iteração. Se preocupe com os detalhes mais tarde.
+					DjikstraListElement dj_originalgraph_node2 = this.Get(link_connection.getKey().key);
+					Node resultgraph_node2 = dj_originalgraph_node2.node.Clone();
 					resultingGraph.Add(resultgraph_node2);
-					System.out.println("\tInserted [" + newlink.getKey().key + "] on the resulting graph.");
-
-					// Increases the local time of variable with link value and gets the time of
-					// actual path
-					DjikstraListElement e1 = Get(resultgraph_node1.key);
-					time = e1.time;
-					// E2 stores the new node reference
-					DjikstraListElement e2 = Get(resultgraph_node2.key);
-					e2.time = time += newlink.getValue();
-
-					// Inserts the new node into the result graph, and links it with the previous
-					// node
-					System.out.print ("\tLinking...: [" + resultgraph_node1.key + ", " + resultgraph_node2.key + "]: " + newlink.getValue());
-					resultgraph_node1.link(resultgraph_node2, newlink.getValue());
-					System.out.println(" -- linked!");
-
-					// Updates the cursor
-					startingNode = Get(resultgraph_node2.key);
-					startingNode.time = time;
-					startingNode.visited = true;
-					visited_nodeList.add(startingNode.node);
-					resultgraph_node1 = startingNode.node.Clone();
+					visited_nodeList.add(dj_originalgraph_node2.node);
+			
 					
+					resultgraph_node1.link(resultgraph_node2, link_connection.getValue());
 					
+					dj_originalgraph_node1 = dj_originalgraph_node2;
+					resultgraph_node1 = dj_originalgraph_node1.node.Clone();
 				}
+
 			}
 		}
 	}
-
 }

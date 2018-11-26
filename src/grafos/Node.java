@@ -60,7 +60,16 @@ public class Node {
 		System.out.println("\t\t[.] Link inserted: ["+ this.key + ", " + NodeToLink.key +"]: " + weight + ".");
 		linkedNodes.put(NodeToLink, weight);
 		for (Node nes : linkedNodes.keySet()) {
-			System.out.println(nes.key);
+			System.out.println("linked nodes from " + this.key + ": " + nes.key);
+		}
+	}
+	
+	public void DjikstraLink(Node NodeToLink, float weight) throws LinkException {
+		// Insere o link, após todas as verificações.
+		linkedNodes.put(NodeToLink, weight);
+		System.out.println("\t\t[.] Link inserted: ["+ this.key + ", " + NodeToLink.key +"]: " + weight + ".");
+		for (Node nes : linkedNodes.keySet()) {
+			System.out.println("linked nodes from " + this.key + ": " + nes.key);
 		}
 	}
 
@@ -117,6 +126,7 @@ public class Node {
 	public Node Clone() {
 		Node a = new Node(this.key);
 		a.data = this.data;
+		a.linkedNodes = new LinkedHashMap<Node, Float>();
 		return a;
 	}
 }
