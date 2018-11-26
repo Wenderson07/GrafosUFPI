@@ -129,4 +129,13 @@ public class Node {
 		a.linkedNodes = new LinkedHashMap<Node, Float>();
 		return a;
 	}
+	
+	public ArrayList<Node> returnConnectedNodesAsArrayList() {
+		ArrayList<Node> list = new ArrayList<Node>();
+		for (Node n : this.linkedNodes.keySet()) {
+			list.add(n);
+		}
+		
+		return list;
+	}
 }

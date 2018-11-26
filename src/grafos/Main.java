@@ -1,5 +1,6 @@
 package grafos;
 
+import java.security.InvalidParameterException;
 import java.util.Date;
 
 public class Main {
@@ -35,21 +36,14 @@ public class Main {
 //			e.printStackTrace();
 //		}
 		
-		d1 = new Date();
 		Djikstra dj = new Djikstra(newGraph);
 		try {
-			dj.Start(newGraph.nodeList.get(0));
-			d2 = new Date();
-			dj.resultingGraph.Print();
-			for (Node n : dj.resultingGraph.nodeList) {
-				System.out.println(n.key);
-				for (Node j : n.linkedNodes.keySet()) {
-					System.out.println("\t" + j.key);
-				}
-			}
-		} catch (ValidationException | ConflictingNodeException | LinkException e) {
+			dj.Start();
+		} catch (InvalidParameterException | ValidationException | ConflictingNodeException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
+		
+		
+		}
 }
